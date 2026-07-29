@@ -262,20 +262,12 @@ discEl.addEventListener('input', () => localStorage.setItem('wax-discogs-token',
 // File input
 $('file-input').addEventListener('change', e => { if (e.target.files[0]) loadImage(e.target.files[0]); });
 
-function loadImage(file) {
+function loadImage(file) {const reader=new FileReader();reader.onload=ev=>{const img=n
   const reader = new FileReader();
   reader.onload = ev => {
     const full = ev.target.result;
     currentImageB64 = full.split(',')[1];currentImageType = full.split(',') [0].split(':')[1].split(';')[0];
-    $('preview-img').src = full;
-    $('preview-img').style.display = 'block';
-    $('photo-zone').style.display = 'none';
-    $('clear-btn').style.display = 'block';
-    $('identify-btn').disabled = false;
-    setStatus('');
-  };
-  reader.readAsDataURL(file);
-}
+   $('preview-img').src=resized;$('preview-img').style.display='block';$('photo-zone').style.display='none';$('clear-btn').style.display='block';$('identify-btn').disabled=false;setStatus('')};img.src=ev.target.result};reader.readAsDataURL(file)}
 
 $('clear-btn').addEventListener('click', () => {
   currentImageB64 = null;
