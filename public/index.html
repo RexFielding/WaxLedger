@@ -2,7 +2,16 @@
 <header><h1>Wax <span>Ledger</span></h1><div class="stats-bar"><div class="stat"><div class="val" id="hdr-count">0</div><div class="lbl">Records</div></div><div class="stat"><div class="val" id="hdr-value">$0</div><div class="lbl">Value</div></div></div></header>
 <div class="tabs"><button class="tab active" id="tab-btn-add" onclick="showTab('add',this)">+ Add</button><button class="tab" id="tab-btn-collection" onclick="showTab('collection',this)">Collection</button><button class="tab" id="tab-btn-settings" onclick="showTab('settings',this)">Settings</button></div>
 <div class="panel active" id="tab-add">
-<div class="photo-zone" id="photo-zone"><input type="file" id="file-input" accept="image/*"><div class="icon">📷</div><p><strong>Tap to photograph album</strong>Camera or gallery</p></div>
+<div id="photo-zone" style="margin-bottom:16px;display:flex;gap:10px">
+<div class="photo-zone" style="flex:1;margin-bottom:0" onclick="document.getElementById('camera-input').click()">
+<input type="file" id="camera-input" accept="image/*" capture="environment" style="display:none">
+<div class="icon">📷</div><p><strong>Take Photo</strong></p>
+</div>
+<div class="photo-zone" style="flex:1;margin-bottom:0" onclick="document.getElementById('gallery-input').click()">
+<input type="file" id="gallery-input" accept="image/*" style="display:none">
+<div class="icon">🖼️</div><p><strong>From Gallery</strong></p>
+</div>
+</div>
 <img id="preview-img" alt="Preview">
 <button class="btn btn-secondary" id="clear-btn" style="display:none;margin-bottom:12px">↩ Clear photo</button>
 <div class="grid2">
@@ -56,7 +65,8 @@ anthEl.addEventListener('input',()=>localStorage.setItem('wax-anthropic-key',ant
 discEl.addEventListener('input',()=>localStorage.setItem('wax-discogs-token',discEl.value));
 
 // File input with image resize
-$('file-input').addEventListener('change',e=>{if(e.target.files[0])loadImage(e.target.files[0])});
+$('camera-input').addEventListener('change',e=>{if(e.target.files[0])loadImage(e.target.files[0])});
+$('gallery-input').addEventListener('change',e=>{if(e.target.files[0])loadImage(e.target.files[0])});
 
 function loadImage(file){
   const reader=new FileReader();
@@ -90,7 +100,7 @@ $('clear-btn').addEventListener('click',()=>{
   $('preview-img').style.display='none';
   $('photo-zone').style.display='flex';
   $('clear-btn').style.display='none';
-  $('file-input').value='';
+  $('camera-input').value='';$('gallery-input').value='';
   $('identify-btn').disabled=true;
   setStatus('');
 });
