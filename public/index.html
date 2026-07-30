@@ -40,10 +40,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-let collection=JSON.parse(localStorage.getItem('wax-ledger-v5')||'[]');
+let collection=JSON.parse(localStorage.getItem('wax-ledger-v6')||'[]');
 let currentImageB64=null;
 let currentImageType='image/jpeg';
-const save=()=>{try{localStorage.setItem('wax-ledger-v5',JSON.stringify(collection));}catch(e){console.warn('Storage full, thumbnails disabled')}};
+const save=()=>{try{localStorage.setItem('wax-ledger-v6',JSON.stringify(collection));}catch(e){console.warn('Storage full, thumbnails disabled')}};
 const fmt=v=>v?'$'+Number(v).toFixed(2):'—';
 const median=arr=>{if(!arr.length)return 0;const s=[...arr].sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2};
 const esc=s=>s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
@@ -178,7 +178,7 @@ $('identify-btn').addEventListener('click',async()=>{
     const record={
       id:Date.now(),artist,title,year,label,format,condition,notes,
       value:marketValue,discogsUrl,
-      thumb:currentImageB64,
+      thumb:null,
       addedAt:new Date().toISOString()
     };
     collection.unshift(record);
